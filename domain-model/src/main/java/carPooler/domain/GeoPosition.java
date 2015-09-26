@@ -34,12 +34,12 @@ public class GeoPosition {
 	 * @param otherLocation
 	 * @return
 	 */
-	public int lengthTo(GeoPosition otherLocation) {
+	public long lengthTo(GeoPosition otherLocation) {
 		// Distance between the two points in cartesian space.
 		double distance = Math.sqrt(Math.pow(this._latitude - otherLocation.getLatitude(), 2)
 				+ Math.pow(this._longitude - otherLocation.getLongitude(), 2));
 		// Convert to meters and drop remainder
-		int distanceInM = (int) (distance * 111000);
+		long distanceInM = (long) (distance * 111000);
 		return distanceInM;
 	}
 

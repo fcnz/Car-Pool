@@ -11,19 +11,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Trip {
 
+	private static Logger logger = LoggerFactory.getLogger(Trip.class);
+
+	// Could be a driver or a passenger
+	private long _id;
 	private Traveler _traveler;
-	private DateTime _dateTime;
+	private DateTime _startTime;
 	private GeoPosition _start;
 	private GeoPosition _end;
 	private List<Trip> _detours;
 
-	public Trip(Traveler traveler, DateTime dateTime, GeoPosition start, GeoPosition end) {
+	public Trip(long id, Traveler traveler, DateTime dateTime, GeoPosition start, GeoPosition end) {
 		_detours = new ArrayList<Trip>();
+		this._id = id;
 		this._traveler = traveler;
-		this._dateTime = dateTime;
+		this._startTime = dateTime;
 		this._start = start;
 		this._end = end;
 	}
@@ -34,13 +41,13 @@ public class Trip {
 	 * @param detour
 	 * @return - The difference in length if the new Trip is added
 	 */
-	public int findExtraLength(Trip detour) {
+	public long findExtraLength(Trip detour) {
 		// Find the current length
-		int currentLength = tripLength();
+		long currentLength = tripLength();
 		// Add the new Trip
 		addDetour(detour);
 		// Find the new length
-		int newLength = tripLength();
+		long newLength = tripLength();
 		// Remove the Trip that was just added
 		_detours.remove(_detours.size());
 		// Return the difference
@@ -63,10 +70,12 @@ public class Trip {
 	 * @return The optimal distance this trip can be given all its detours as an
 	 *         int. What the int represents could be time or distance
 	 */
-	public int tripLength() {
-		int length = 0;
+	public long tripLength() {
+		long length = 0;
 		List<GeoPosition> stops = getDirections();
+		logger.info("0th stop is: " + stops.get(0));
 		for (int i = 0; i < stops.size() - 1; i++) {
+			logger.info((i + 1) + "th stop is: " + stops.get(i + 1).toString());
 			length += stops.get(i).lengthTo(stops.get(i + 1));
 		}
 		return length;
@@ -87,7 +96,16 @@ public class Trip {
 			stops.add(t.getEnd());
 		}
 		stops.add(_end);
+		logger.info("number of stops = " + stops.size());
 		return stops;
+	}
+
+	public long getID() {
+		return _id;
+	}
+
+	public void setID(long _id) {
+		this._id = _id;
 	}
 
 	// Make getEnd() and getStart() safe
@@ -116,11 +134,11 @@ public class Trip {
 	}
 
 	public DateTime getDateTime() {
-		return _dateTime;
+		return _startTime;
 	}
 
 	public void setDateTime(DateTime dateTime) {
-		this._dateTime = dateTime;
+		this._startTime = dateTime;
 	}
 
 }
