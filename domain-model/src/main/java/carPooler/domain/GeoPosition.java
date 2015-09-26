@@ -91,8 +91,8 @@ public class GeoPosition {
 			geoPositionAsString = geoPositionAsString.substring(1, geoPositionAsString.length() - 1);
 			// Split the string by ','
 			String[] splitString = geoPositionAsString.split(",");
-			logger.info("lat = " + splitString[0]);
-			logger.info("long = " + splitString[1]);
+			logger.debug("lat = " + splitString[0]);
+			logger.debug("long = " + splitString[1]);
 			// If there are now 2 arguments, assign them to lat and long
 			if (splitString.length == 2) {
 				this._latitude = Double.parseDouble(splitString[0]);

@@ -73,9 +73,9 @@ public class Trip {
 	public long tripLength() {
 		long length = 0;
 		List<GeoPosition> stops = getDirections();
-		logger.info("0th stop is: " + stops.get(0));
+		logger.debug("0th stop is: " + stops.get(0));
 		for (int i = 0; i < stops.size() - 1; i++) {
-			logger.info((i + 1) + "th stop is: " + stops.get(i + 1).toString());
+			logger.debug((i + 1) + "th stop is: " + stops.get(i + 1).toString());
 			length += stops.get(i).lengthTo(stops.get(i + 1));
 		}
 		return length;
@@ -96,7 +96,7 @@ public class Trip {
 			stops.add(t.getEnd());
 		}
 		stops.add(_end);
-		logger.info("number of stops = " + stops.size());
+		logger.debug("number of stops = " + stops.size());
 		return stops;
 	}
 

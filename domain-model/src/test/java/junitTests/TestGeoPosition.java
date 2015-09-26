@@ -24,7 +24,7 @@ public class TestGeoPosition {
 	@Test
 	public void testGeoPositionFromString() {
 		String asString = testGeoPosotion.toString();
-		logger.info(asString);
+		logger.debug(asString);
 		assertTrue(asString.equals("(5.55,5.55)"));
 		GeoPosition fromString = new GeoPosition(asString);
 		assertTrue(testGeoPosotion.equals(fromString));
@@ -36,7 +36,7 @@ public class TestGeoPosition {
 		GeoPosition position2 = new GeoPosition(0.0, 0.0);
 		// Check that the length is the same each way
 		assertTrue(position2.lengthTo(testGeoPosotion) == testGeoPosotion.lengthTo(position2));
-		logger.info("length is: " + position2.lengthTo(testGeoPosotion));
+		logger.debug("length is: " + position2.lengthTo(testGeoPosotion));
 		assertTrue(position2.lengthTo(testGeoPosotion) == 871226);
 	}
 

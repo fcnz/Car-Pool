@@ -29,7 +29,7 @@ public class TestTrip {
 	public void testTripLength() {
 		// With only two points, trip length should be just the distance between
 		// start and end
-		logger.info("Initial length = " + testTrip.tripLength());
+		logger.debug("Initial length = " + testTrip.tripLength());
 		if (start.lengthTo(end) != testTrip.tripLength()) {
 			fail("Trip length does not match length between points");
 		}
@@ -39,7 +39,7 @@ public class TestTrip {
 		testTrip.addDetour(new Trip(0, null, null, stop1, stop2));
 		// The new trip should be 5 times the original
 		long total = 5 * start.lengthTo(end);
-		logger.info("Total length = " + testTrip.tripLength());
+		logger.debug("Total length = " + testTrip.tripLength());
 		if (testTrip.tripLength() != total) {
 			fail("Trip length should be 5 times original");
 		}
