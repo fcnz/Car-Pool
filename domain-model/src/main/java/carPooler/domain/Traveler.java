@@ -22,11 +22,7 @@ public class Traveler {
 	private GeoPosition _location;
 	private Set<Traveler> _friends;
 
-	public Traveler(long id,
-			String email,
-			String username,
-			Gender gender,
-			GeoPosition home) {
+	public Traveler(long id, String email, String username, Gender gender, GeoPosition home) {
 		this._id = id;
 		this._email = email;
 		this._username = username;
@@ -36,12 +32,15 @@ public class Traveler {
 
 	/**
 	 * Adds the friend to your list so long as they are not already there.
-	 * @param friend - User friend to add to the list.
+	 * Relies on the equals(Traveler t) method
+	 *
+	 * @param friend
+	 *            - User friend to add to the list.
 	 */
 	public void addFriend(Traveler friend) {
-			if (!_friends.add(friend)) {
-				logger.error("Friend, " + friend.getEmail() + " not added to " + this._email);
-			}
+		if (!_friends.add(friend)) {
+			logger.error("Friend, " + friend.getEmail() + " not added to " + this._email);
+		}
 	}
 
 	public long getId() {
@@ -90,12 +89,15 @@ public class Traveler {
 		this._location = location;
 	}
 
-//	@Override
-//	public boolean equals(Object o) {
-//		if (((Traveler) o).getEmail().equals(this._email)) {
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Traveler)) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		Traveler other = (Traveler) obj;
+		return this._id == other._id;
+	}
 }
