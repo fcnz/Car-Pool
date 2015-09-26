@@ -3,6 +3,7 @@ package carPooler.domain;
 import java.util.Collections;
 import java.util.Set;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +36,7 @@ public class Traveler {
 	 * Relies on the equals(Traveler t) method
 	 *
 	 * @param friend
-	 *            - User friend to add to the list.
+	 *            - Traveler to add to the friends list.
 	 */
 	public void addFriend(Traveler friend) {
 		if (!_friends.add(friend)) {
@@ -99,5 +100,10 @@ public class Traveler {
 		}
 		Traveler other = (Traveler) obj;
 		return this._id == other._id;
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 31).append(_id).toHashCode();
 	}
 }
