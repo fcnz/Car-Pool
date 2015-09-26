@@ -106,4 +106,6 @@ public class Traveler {
 	public int hashCode() {
 		return new HashCodeBuilder(17, 31).append(_id).toHashCode();
 	}
+
+	// Create toString() method
 }

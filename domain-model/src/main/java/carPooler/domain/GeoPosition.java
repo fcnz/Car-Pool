@@ -1,7 +1,5 @@
 package carPooler.domain;
 
-import java.util.IllegalFormatException;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.slf4j.Logger;
@@ -28,13 +26,21 @@ public class GeoPosition {
 		_longitude = lng;
 	}
 
+	/**
+	 * Returns an integer representing the length from this position to another.
+	 * At the moment, the length is the distance in meters but could be time in
+	 * seconds or any other more meaningful measure
+	 *
+	 * @param otherLocation
+	 * @return
+	 */
 	public int lengthTo(GeoPosition otherLocation) {
 		// Distance between the two points in cartesian space.
 		double distance = Math.sqrt(Math.pow(this._latitude - otherLocation.getLatitude(), 2)
 				+ Math.pow(this._longitude - otherLocation.getLongitude(), 2));
 		// Convert to meters and drop remainder
-		int distanceInKm = (int) (distance * 111000);
-		return distanceInKm;
+		int distanceInM = (int) (distance * 111000);
+		return distanceInM;
 	}
 
 	public double getLatitude() {
