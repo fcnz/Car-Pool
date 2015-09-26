@@ -4,6 +4,8 @@ import java.util.IllegalFormatException;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class to represent a geographic location in terms of latitude and longitude.
@@ -11,6 +13,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  *
  */
 public class GeoPosition {
+
+	private static Logger logger = LoggerFactory.getLogger(GeoPosition.class);
 
 	private double _latitude;
 
@@ -76,17 +80,22 @@ public class GeoPosition {
 	 */
 	public GeoPosition(String geoPositionAsString) {
 		// Check if the string starts and ends with a ()
-		if (geoPositionAsString.indexOf(0) == '(' && geoPositionAsString.indexOf(geoPositionAsString.length()) == ')') {
+		if (geoPositionAsString.startsWith("(") && geoPositionAsString.endsWith(")")) {
+			// Remove the brackets
+			geoPositionAsString = geoPositionAsString.substring(1, geoPositionAsString.length() - 1);
 			// Split the string by ','
 			String[] splitString = geoPositionAsString.split(",");
-			// If there are now 2 arguments,
+			logger.info("lat = " + splitString[0]);
+			logger.info("long = " + splitString[1]);
+			// If there are now 2 arguments, assign them to lat and long
 			if (splitString.length == 2) {
 				this._latitude = Double.parseDouble(splitString[0]);
 				this._longitude = Double.parseDouble(splitString[1]);
 				return;
 			}
 		}
-		// If you get to this point without returning, the format must have been wrong. Throw an invalid format exception
+		// If you get to this point without returning, the format must have been
+		// wrong. Throw an invalid format exception
 		throw new IllegalArgumentException("Invalid format of string for GeoPosition: " + geoPositionAsString);
 	}
 }
