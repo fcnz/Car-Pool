@@ -1,33 +1,50 @@
 package carPooler.domain;
 
+/**
+ * Picking someone up will result in a detour, the passengers trip is put inside
+ * this trip so that the total length can be calculated. The Traveler of the
+ * trip at the top of the hierarchy is considered to be the driver and the
+ * Travelers in subsequent levels are considered to be passengers.
+ */
+
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.joda.time.DateTime;
 
 public class Trip {
 
-	/**
-	 * Picking someone up will result in a detour, the passengers trip is put
-	 * inside this trip so that the total length can be calculated
-	 */
-	private Set<Trip> _detours;
-	private GeoPosition _start;
-	private GeoPosition _end;
 	private Traveler _traveler;
 	private DateTime _dateTime;
+	private GeoPosition _start;
+	private GeoPosition _end;
+	private List<Trip> _detours;
 
-	public Trip() {
-		_detours = new HashSet<Trip>();
-	}
-
-	public Trip(Traveler traveler, GeoPosition start, GeoPosition end) {
-		_detours = new HashSet<Trip>();
+	public Trip(Traveler traveler, DateTime dateTime, GeoPosition start, GeoPosition end) {
+		_detours = new ArrayList<Trip>();
 		this._traveler = traveler;
+		this._dateTime = dateTime;
 		this._start = start;
 		this._end = end;
+	}
+
+	/**
+	 * Finds the difference adding a new detour would make to the current trip
+	 *
+	 * @param detour
+	 * @return - The difference in length if the new Trip is added
+	 */
+	public int findExtraLength(Trip detour) {
+		// Find the current length
+		int currentLength = tripLength();
+		// Add the new Trip
+		addDetour(detour);
+		// Find the new length
+		int newLength = tripLength();
+		// Remove the Trip that was just added
+		_detours.remove(_detours.size());
+		// Return the difference
+		return newLength - currentLength;
 	}
 
 	/**
@@ -40,8 +57,8 @@ public class Trip {
 	}
 
 	/**
-	 * Calculates the least distance, beginning at the start, visiting the
-	 * pickup locations, the dropoff locations, then the end location
+	 * Calculates the distance, beginning at the start, visiting the pickup
+	 * locations, the dropoff locations, then the end location
 	 *
 	 * @return The optimal distance this trip can be given all its detours as an
 	 *         int. What the int represents could be time or distance
@@ -73,37 +90,28 @@ public class Trip {
 		return stops;
 	}
 
-	/**
-	 * Make safe
-	 *
-	 * @return
-	 */
+	// Make getEnd() and getStart() safe
 	GeoPosition getEnd() {
 		return _end;
 	}
 
-	/**
-	 * Make safe
-	 *
-	 * @return
-	 */
 	GeoPosition getStart() {
 		return _start;
 	}
 
-	public Traveler get_traveler() {
+	public Traveler getTraveler() {
 		return _traveler;
 	}
 
-	public void set_traveler(Traveler traveler) {
+	public void setTraveler(Traveler traveler) {
 		this._traveler = traveler;
 	}
 
-	public void set_start(GeoPosition start) {
+	public void setStart(GeoPosition start) {
 		this._start = start;
 	}
 
-	public void set_end(GeoPosition end) {
+	public void setEnd(GeoPosition end) {
 		this._end = end;
 	}
 
