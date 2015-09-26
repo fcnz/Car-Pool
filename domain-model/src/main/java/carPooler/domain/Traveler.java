@@ -1,4 +1,4 @@
-package domain;
+package carPooler.domain;
 
 import java.util.Set;
 
