@@ -1,5 +1,7 @@
 package carPooler.domain;
 
+import java.util.IllegalFormatException;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -66,5 +68,25 @@ public class GeoPosition {
 		buffer.append(")");
 
 		return buffer.toString();
+	}
+
+	/**
+	 * Constructor method that deconstructs a string as long as it is in the
+	 * same format as the toString() method
+	 */
+	public GeoPosition(String geoPositionAsString) {
+		// Check if the string starts and ends with a ()
+		if (geoPositionAsString.indexOf(0) == '(' && geoPositionAsString.indexOf(geoPositionAsString.length()) == ')') {
+			// Split the string by ','
+			String[] splitString = geoPositionAsString.split(",");
+			// If there are now 2 arguments,
+			if (splitString.length == 2) {
+				this._latitude = Double.parseDouble(splitString[0]);
+				this._longitude = Double.parseDouble(splitString[1]);
+				return;
+			}
+		}
+		// If you get to this point without returning, the format must have been wrong. Throw an invalid format exception
+		throw new IllegalArgumentException("Invalid format of string for GeoPosition: " + geoPositionAsString);
 	}
 }
