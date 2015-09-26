@@ -9,37 +9,26 @@ public class Traveler {
 
 	private static Logger logger = LoggerFactory.getLogger( Traveler.class );
 
+	// Fields initialized at creation time
 	private long _id;
-	private Gender _gender;
-	private GeoPosition _home;
-	private GeoPosition _location;
 	private String _email;
 	private String _username;
+	private Gender _gender;
+	private GeoPosition _home;
+	// Fields set after creation
+	private GeoPosition _location;
 	private Set<Traveler> _friends;
 
-	public Traveler() {
-		// Required but not to be used if possible
-		this._email = "";
-	}
-
-	public Traveler(String email) {
-		this._email = email;
-	}
-
-	public Traveler(long id, String email, String username, Gender gender) {
-		this._id = id;
-		this._email = email;
-		this._username = username;
-		this._gender = gender;
-	}
-
-	public Traveler(long id, String email, String username, GeoPosition home, GeoPosition location, Gender gender) {
+	public Traveler(long id,
+			String email,
+			String username,
+			Gender gender,
+			GeoPosition home) {
 		this._id = id;
 		this._email = email;
 		this._username = username;
 		this._gender = gender;
 		this._home = home;
-		this._location = location;
 	}
 
 	/**
@@ -47,11 +36,11 @@ public class Traveler {
 	 * @param friend - User friend to add to the list.
 	 */
 	public void addFriend(Traveler friend) {
-		if (!_friends.contains(friend)) {
-			_friends.add(friend);
-		} else {
-			logger.error("Friend, " + friend.getEmail() + " not added to " + this._email);
-		}
+			if (!_friends.add(friend)) {
+				logger.error("Friend, " + friend.getEmail() + " not added to " + this._email);
+			}
+
+
 	}
 
 	public GeoPosition getHome() {
