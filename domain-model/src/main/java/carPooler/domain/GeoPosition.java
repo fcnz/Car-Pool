@@ -1,5 +1,10 @@
 package carPooler.domain;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.slf4j.Logger;
@@ -10,12 +15,16 @@ import org.slf4j.LoggerFactory;
  * GeoPosition object are immutable.
  *
  */
+@XmlRootElement(name = "GeoPosition")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class GeoPosition {
 
 	private static Logger logger = LoggerFactory.getLogger(GeoPosition.class);
 
+	@XmlElement(name="latitude")
 	private double _latitude;
 
+	@XmlElement(name="longitude")
 	private double _longitude;
 
 	protected GeoPosition() {
