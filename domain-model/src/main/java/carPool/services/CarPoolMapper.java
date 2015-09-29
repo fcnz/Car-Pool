@@ -11,11 +11,11 @@ import carPool.domain.Trip;;
  * @author Fraser
  *
  */
-public class CarPoolerMapper {
+public class CarPoolMapper {
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger logger = Logger.getLogger(CarPoolerMapper.class);
+	private static final Logger logger = Logger.getLogger(CarPoolMapper.class);
 
 	/**
 	 * Provides a domain model traveler given a dto one
