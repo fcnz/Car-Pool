@@ -20,16 +20,16 @@ public class Trip {
 
 	// Could be a driver or a passenger
 	private long _id;
-	private Traveler _traveler;
+	private long _travelerID;
 	private DateTime _startTime;
 	private GeoPosition _start;
 	private GeoPosition _end;
 	private List<Trip> _detours;
 
-	public Trip(long id, Traveler traveler, DateTime dateTime, GeoPosition start, GeoPosition end) {
+	public Trip(long id, long traveler, DateTime dateTime, GeoPosition start, GeoPosition end) {
 		_detours = new ArrayList<Trip>();
 		this._id = id;
-		this._traveler = traveler;
+		this._travelerID = traveler;
 		this._startTime = dateTime;
 		this._start = start;
 		this._end = end;
@@ -109,25 +109,27 @@ public class Trip {
 	}
 
 	// Make getEnd() and getStart() safe
-	GeoPosition getEnd() {
+	public GeoPosition getEnd() {
 		return _end;
 	}
 
-	GeoPosition getStart() {
+	public GeoPosition getStart() {
 		return _start;
 	}
 
-	public Traveler getTraveler() {
-		return _traveler;
+	public long getTravelerID() {
+		return _travelerID;
 	}
 
-	public void setTraveler(Traveler traveler) {
-		this._traveler = traveler;
+	public void setTraveler(long travelerID) {
+		this._travelerID = travelerID;
 	}
 
 	public void setStart(GeoPosition start) {
 		this._start = start;
 	}
+
+
 
 	public void setEnd(GeoPosition end) {
 		this._end = end;

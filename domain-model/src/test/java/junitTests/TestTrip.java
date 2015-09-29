@@ -22,7 +22,7 @@ public class TestTrip {
 	public void before() {
 		start = new GeoPosition(0.0, 0.0);
 		end = new GeoPosition(5.55, 5.55);
-		testTrip = new Trip(0, null, null, start, end);
+		testTrip = new Trip(0, 0, null, start, end);
 	}
 
 	@Test
@@ -36,7 +36,7 @@ public class TestTrip {
 		// Add a detour to the test trip
 		GeoPosition stop1 = new GeoPosition(11.1, 11.1);
 		GeoPosition stop2 = new GeoPosition(0.0, 0.0);
-		testTrip.addDetour(new Trip(0, null, null, stop1, stop2));
+		testTrip.addDetour(new Trip(0, 0, null, stop1, stop2));
 		// The new trip should be 5 times the original
 		long total = 5 * start.lengthTo(end);
 		logger.debug("Total length = " + testTrip.tripLength());
