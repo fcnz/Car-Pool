@@ -7,8 +7,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import carPooler.domain.GeoPosition;
-import carPooler.domain.Trip;
+import carPool.domain.GeoPosition;
+import carPool.domain.Trip;
 
 public class TestTrip {
 

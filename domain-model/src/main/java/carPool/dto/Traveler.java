@@ -1,4 +1,4 @@
-package carPooler.dto;
+package carPool.dto;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -9,8 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import carPooler.domain.Gender;
-import carPooler.domain.GeoPosition;
+import carPool.domain.Gender;
+import carPool.domain.GeoPosition;
 
 /**
  * <h2>Class to represent a Traveler.</h2>

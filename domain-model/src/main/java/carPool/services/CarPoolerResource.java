@@ -1,4 +1,4 @@
-package carPooler.services;
+package carPool.services;
 
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -7,7 +7,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 
-import carPooler.domain.Traveler;
+import carPool.domain.Traveler;
 
 /**
  * Web service resource implementation. An instance of this class will handle
@@ -30,7 +30,7 @@ public class CarPoolerResource {
 		// reloadDatabase();
 	}
 
-	public Response createTraveler(carPooler.dto.Traveler dtoTraveler) {
+	public Response createTraveler(carPool.dto.Traveler dtoTraveler) {
 		return null;
 
 	}

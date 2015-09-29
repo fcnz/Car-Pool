@@ -1,4 +1,4 @@
-package carPooler.domain;
+package carPool.domain;
 
 /**
  * Picking someone up will result in a detour, the passengers trip is put inside

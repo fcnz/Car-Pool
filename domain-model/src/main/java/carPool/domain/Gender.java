@@ -1,4 +1,4 @@
-package carPooler.domain;
+package carPool.domain;
 
 /**
  * Enumerated type to represent gender.

@@ -1,9 +1,9 @@
-package carPooler.services;
+package carPool.services;
 
 import org.apache.log4j.Logger;
 
-import carPooler.domain.Trip;
-import carPooler.domain.Traveler;;
+import carPool.domain.Traveler;
+import carPool.domain.Trip;;
 
 /**
  * Helper class for converting between DTO and domain model objects
@@ -23,7 +23,7 @@ public class CarPoolerMapper {
 	 * @param dtoTraveler
 	 * @return
 	 */
-	static Traveler toDomainTraveler(carPooler.dto.Traveler dtoTraveler) {
+	static Traveler toDomainTraveler(carPool.dto.Traveler dtoTraveler) {
 		Traveler domainTraveler = new Traveler(dtoTraveler.getID(), dtoTraveler.getEmail(), dtoTraveler.getUsername(),
 				dtoTraveler.getGender(), dtoTraveler.getHome());
 		try {
@@ -36,21 +36,21 @@ public class CarPoolerMapper {
 		return domainTraveler;
 	}
 
-	static carPooler.dto.Traveler toDTOTraveler(Traveler domainTraveler) {
-		carPooler.dto.Traveler dtoTraveler = new carPooler.dto.Traveler(domainTraveler.getId(),
+	static carPool.dto.Traveler toDTOTraveler(Traveler domainTraveler) {
+		carPool.dto.Traveler dtoTraveler = new carPool.dto.Traveler(domainTraveler.getId(),
 				domainTraveler.getEmail(), domainTraveler.getName(), domainTraveler.getGender(),
 				domainTraveler.getHome(), domainTraveler.getLocation());
 		return dtoTraveler;
 	}
 
-	static Trip toDomainTrip(carPooler.dto.Trip dtoTrip) {
+	static Trip toDomainTrip(carPool.dto.Trip dtoTrip) {
 		Trip domainTrip = new Trip(dtoTrip.getID(), dtoTrip.getTravelerID(), dtoTrip.getStartTime(), dtoTrip.getStart(),
 				dtoTrip.getEnd());
 		return domainTrip;
 	}
 
-	static carPooler.dto.Trip toDTOTrip(Trip domainTrip) {
-		carPooler.dto.Trip dtoTrip = new carPooler.dto.Trip(domainTrip.getID(), domainTrip.getTravelerID(), domainTrip.getDateTime(), domainTrip.getStart(),
+	static carPool.dto.Trip toDTOTrip(Trip domainTrip) {
+		carPool.dto.Trip dtoTrip = new carPool.dto.Trip(domainTrip.getID(), domainTrip.getTravelerID(), domainTrip.getDateTime(), domainTrip.getStart(),
 				domainTrip.getEnd());
 		return dtoTrip;
 	}

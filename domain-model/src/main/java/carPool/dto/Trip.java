@@ -1,4 +1,4 @@
-package carPooler.dto;
+package carPool.dto;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -11,8 +11,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.joda.time.DateTime;
 
-import carPooler.domain.GeoPosition;
-import carPooler.jaxb.LocalTimeAdapter;
+import carPool.domain.GeoPosition;
+import carPool.jaxb.LocalTimeAdapter;
 
 /**
  * <h2>Class to represent a Trip.</h2>

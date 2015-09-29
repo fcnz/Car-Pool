@@ -1,4 +1,4 @@
-package carPooler.jaxb;
+package carPool.jaxb;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
