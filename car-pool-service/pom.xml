@@ -4,7 +4,7 @@
 	<groupId>nz.ac.auckland</groupId>
 	<artifactId>car-pool</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>car-pooler-domain-model</name>
+	<name>car-pool-service</name>
 
 	<properties>
 		<servlet.container.port>10000</servlet.container.port>
