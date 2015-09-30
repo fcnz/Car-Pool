@@ -26,10 +26,36 @@ public class Trip {
 	private GeoPosition _end;
 	private List<Trip> _detours;
 
+	/**
+	 * Don't use this, deprecated
+	 *
+	 * @param id
+	 * @param traveler
+	 * @param dateTime
+	 * @param start
+	 * @param end
+	 */
 	public Trip(long id, long traveler, DateTime dateTime, GeoPosition start, GeoPosition end) {
 		_detours = new ArrayList<Trip>();
 		this._id = id;
 		this._travelerID = traveler;
+		this._startTime = dateTime;
+		this._start = start;
+		this._end = end;
+	}
+
+	/**
+	 * Constructor to use, omits the traveler ID field, should only be added
+	 * when it is added to the database
+	 *
+	 * @param id
+	 * @param dateTime
+	 * @param start
+	 * @param end
+	 */
+	public Trip(long id, DateTime dateTime, GeoPosition start, GeoPosition end) {
+		_detours = new ArrayList<Trip>();
+		this._id = id;
 		this._startTime = dateTime;
 		this._start = start;
 		this._end = end;
@@ -128,8 +154,6 @@ public class Trip {
 	public void setStart(GeoPosition start) {
 		this._start = start;
 	}
-
-
 
 	public void setEnd(GeoPosition end) {
 		this._end = end;

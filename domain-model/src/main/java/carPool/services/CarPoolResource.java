@@ -2,6 +2,7 @@ package carPool.services;
 
 import java.net.URI;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.ws.rs.Consumes;
@@ -12,7 +13,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 
+import carPool.domain.Gender;
 import carPool.domain.GeoPosition;
 import carPool.domain.Traveler;
 import carPool.domain.Trip;
@@ -32,12 +35,59 @@ public class CarPoolResource {
 	 */
 	private static final Logger logger = Logger.getLogger(CarPoolResource.class);
 
-	private Map<Long, Traveler> _carPoolDB;
+	private Map<Long, Traveler> _travelersDBTable;
+	private Map<Long, Trip> _tripsDBTable;
 	private AtomicLong _travelerIDCounter;
 	private AtomicLong _tripIDCounter;
 
 	public CarPoolResource() {
-		// reloadDatabase();
+		reloadDatabase();
+
+		initializeSampleData();
+	}
+
+	private void initializeSampleData() {
+		// ----- Initialize traveler 1
+		long id = _travelerIDCounter.incrementAndGet();
+		GeoPosition home = new GeoPosition(0, 0);
+		Traveler traveler1 = new Traveler(id, "t1@carpool.co.nz", "Traveler One", Gender.MALE, home);
+
+		// ----- Initialize traveler 2
+		id = _travelerIDCounter.incrementAndGet();
+		home = new GeoPosition(0, 0);
+		Traveler traveler2 = new Traveler(id, "t2@carpool.co.nz", "Traveler Two", Gender.FEMALE, home);
+
+		// ----- Initialize a trip for traveler 1
+		id = _tripIDCounter.incrementAndGet();
+		GeoPosition start = new GeoPosition(0.0, 0.0);
+		GeoPosition end = new GeoPosition(0.002, 0.0008);
+		DateTime startTime = DateTime.now().plusDays(2);
+		Trip trip = new Trip(id, startTime, start, end);
+		trip.setTraveler(traveler1.getId());
+
+		// ----- Initialize a trip for traveler 2
+		id = _tripIDCounter.incrementAndGet();
+		start = new GeoPosition(0.0000001, 0.0000002);
+		end = new GeoPosition(0.0020000003, 0.0008001);
+		startTime = DateTime.now().plusDays(2);
+		trip = new Trip(id, startTime, start, end);
+		trip.setTraveler(traveler2.getId());
+
+		// Place initialized objects in the database tables
+	}
+
+	private void reloadDatabase() {
+		// Initialize pseudo database tables
+		_travelersDBTable = new ConcurrentHashMap<Long, Traveler>();
+		_tripsDBTable = new ConcurrentHashMap<Long, Trip>();
+
+		// Initialize counters, skip zero
+		_travelerIDCounter = new AtomicLong();
+		_travelerIDCounter.incrementAndGet();
+
+		_tripIDCounter = new AtomicLong();
+		_tripIDCounter.incrementAndGet();
+
 	}
 
 	/**
@@ -55,6 +105,8 @@ public class CarPoolResource {
 		Traveler traveler = CarPoolMapper.toDomainTraveler(dtoTraveler);
 		// Set the ID
 		traveler.setID(_travelerIDCounter.incrementAndGet());
+		// Place it in the database
+		_travelersDBTable.put(traveler.getId(), traveler);
 		// Return the response
 		return Response.created(URI.create("/car-pool/" + traveler.getId())).build();
 	}
@@ -105,8 +157,24 @@ public class CarPoolResource {
 		traveler.setHome(dtoTraveler.getHome());
 	}
 
+	/**
+	 * Gets a specified Traveler object from the database
+	 *
+	 * @param id
+	 * @return
+	 */
 	protected Traveler findTraveler(long id) {
-		return _carPoolDB.get(id);
+		return _travelersDBTable.get(id);
+	}
+
+	/**
+	 * Gets the specified Trip object from the database
+	 *
+	 * @param id
+	 * @return
+	 */
+	protected Trip findTrip(long id) {
+		return _tripsDBTable.get(id);
 	}
 
 }
