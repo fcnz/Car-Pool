@@ -12,7 +12,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.joda.time.DateTime;
 
 import carPool.domain.GeoPosition;
-import carPool.jaxb.LocalTimeAdapter;
+import carPool.jaxb.DateTimeAdapter;
 
 /**
  * <h2>Class to represent a Trip.</h2>
@@ -45,7 +45,7 @@ public class Trip {
 	private long _travelerID;
 
 	@XmlElement(name = "start-time")
-	@XmlJavaTypeAdapter(value = LocalTimeAdapter.class)
+	@XmlJavaTypeAdapter(value = DateTimeAdapter.class)
 	private DateTime _startTime;
 
 	@XmlElement(name = "start")
@@ -53,6 +53,12 @@ public class Trip {
 
 	@XmlElement(name = "end")
 	private GeoPosition _end;
+
+	/**
+	 * Required by JAXB
+	 */
+	public Trip() {
+	}
 
 	/**
 	 * Constructs a DTO Trip instance. This method is intended to be called by
