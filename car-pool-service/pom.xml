@@ -1,0 +1,179 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>nz.ac.auckland</groupId>
+	<artifactId>car-pool</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>car-pool-service</name>
+
+	<properties>
+		<servlet.container.port>10000</servlet.container.port>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12.4</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<id>surefire-it</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.0.6.v20130930</version>
+				<configuration>
+					<httpConnector>
+						<port>${servlet.container.port}</port>
+					</httpConnector>
+					<webApp>
+						<contextPath>/</contextPath>
+					</webApp>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<stopKey>foo</stopKey>
+					<stopPort>9999</stopPort>
+					<stopWait>1</stopWait>
+				</configuration>
+				<executions>
+					<execution>
+						<id>start-jetty</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<scanIntervalSeconds>0</scanIntervalSeconds>
+							<daemon>true</daemon>
+						</configuration>
+					</execution>
+					<execution>
+						<id>stop-jetty</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<!-- H2 database. -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.187</version>
+		</dependency>
+
+		<!-- JPA implementation (Hibernate). -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.8.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.0.3.Final</version>
+		</dependency>
+
+		<!-- JAX-RS dependencies. -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>3.0.9.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<version>3.0.9.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>jaxrs-api</artifactId>
+			<version>3.0.9.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-servlet-initializer</artifactId>
+			<version>3.0.9.Final</version>
+		</dependency>
+
+		<!-- Required for JAXB. -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxb-provider</artifactId>
+			<version>3.0.9.Final</version>
+
+			<!-- Dependency resteasy-jaxb-provider includes a (transitive) dependency
+				on FastInfoset, which depends on jsr173.api. jsr173.api defines the javax.xml.bind
+				package, that is now part of the standard JDK. jsr173 defines a class javax.xml.bind.XMLConstants
+				that differs to the standard javax.xml.bind.XMLConstants class. This project
+				requires the standard class, hence this exclusion. -->
+			<exclusions>
+				<exclusion>
+					<artifactId>FastInfoset</artifactId>
+					<groupId>com.sun.xml.fastinfoset</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Date/time library. -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.7</version>
+		</dependency>
+
+		<!-- Useful utility library. -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+
+		<!-- Unit testing library -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+
+		<!-- Logging dependencies. -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.12</version>
+		</dependency>
+	</dependencies>
+
+</project>
