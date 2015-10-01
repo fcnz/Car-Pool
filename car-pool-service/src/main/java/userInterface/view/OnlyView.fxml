@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.view.OnlyViewController">
+	<children>
+		<VBox layoutX="235.0" layoutY="48.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<children>
+				<HBox layoutX="10.0" layoutY="10.0" spacing="10.0">
+					<children>
+						<Region HBox.hgrow="ALWAYS" />
+						<Button fx:id="button9" mnemonicParsing="false" text="Button" HBox.hgrow="ALWAYS" />
+						<Region HBox.hgrow="ALWAYS" />
+						<Button fx:id="button10" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Button" HBox.hgrow="ALWAYS" />
+						<Region HBox.hgrow="ALWAYS" />
+						<Button fx:id="button11" layoutX="77.0" layoutY="15.0" mnemonicParsing="false" text="Button" HBox.hgrow="ALWAYS" />
+						<Region HBox.hgrow="ALWAYS" />
+					</children>
+					<VBox.margin>
+						<Insets />
+					</VBox.margin>
+					<padding>
+						<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+					</padding>
+				</HBox>
+				<HBox>
+					<children>
+						<Region layoutX="38.0" layoutY="10.0" HBox.hgrow="ALWAYS" />
+						<Label fx:id="mainLabel" text="Label">
+							<font>
+								<Font size="27.0" />
+							</font>
+						</Label>
+						<Region HBox.hgrow="ALWAYS" />
+					</children>
+				</HBox>
+				<TextArea fx:id="display" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+				<HBox spacing="5.0">
+					<children>
+						<Button fx:id="button1" mnemonicParsing="false" prefWidth="150.0" text="Button1" HBox.hgrow="ALWAYS">
+							<HBox.margin>
+								<Insets />
+							</HBox.margin>
+						</Button>
+						<TextField fx:id="field1" HBox.hgrow="ALWAYS" />
+						<Button fx:id="button2" layoutX="15.0" layoutY="15.0" mnemonicParsing="false" prefWidth="150.0" text="Button2" HBox.hgrow="ALWAYS" />
+						<TextField fx:id="field2" layoutX="72.0" layoutY="15.0" HBox.hgrow="ALWAYS" />
+						<Button fx:id="button3" layoutX="226.0" layoutY="15.0" mnemonicParsing="false" prefWidth="150.0" text="Button3" HBox.hgrow="ALWAYS" />
+						<TextField fx:id="field3" layoutX="283.0" layoutY="15.0" HBox.hgrow="ALWAYS" />
+						<Button fx:id="button4" layoutX="437.0" layoutY="15.0" mnemonicParsing="false" prefWidth="150.0" text="Button4" HBox.hgrow="ALWAYS" />
+						<TextField fx:id="field4" layoutX="494.0" layoutY="15.0" HBox.hgrow="ALWAYS" />
+					</children>
+					<VBox.margin>
+						<Insets />
+					</VBox.margin>
+					<padding>
+						<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+					</padding>
+				</HBox>
+				<HBox layoutX="10.0" layoutY="375.0" spacing="5.0">
+					<children>
+						<Button fx:id="button5" mnemonicParsing="false" prefWidth="150.0" text="Button5" HBox.hgrow="ALWAYS">
+							<HBox.margin>
+								<Insets />
+							</HBox.margin>
+						</Button>
+						<TextField fx:id="field5" HBox.hgrow="ALWAYS" />
+						<Button fx:id="button6" layoutX="15.0" layoutY="15.0" mnemonicParsing="false" prefWidth="150.0" text="Button6" HBox.hgrow="ALWAYS" />
+						<TextField fx:id="field6" layoutX="72.0" layoutY="15.0" HBox.hgrow="ALWAYS" />
+						<Button fx:id="button7" layoutX="226.0" layoutY="15.0" mnemonicParsing="false" prefWidth="150.0" text="Button7" HBox.hgrow="ALWAYS" />
+						<TextField fx:id="field7" layoutX="283.0" layoutY="15.0" HBox.hgrow="ALWAYS" />
+						<Button fx:id="button8" layoutX="437.0" layoutY="15.0" mnemonicParsing="false" prefWidth="150.0" text="Button8" HBox.hgrow="ALWAYS" />
+						<TextField fx:id="field8" layoutX="494.0" layoutY="15.0" HBox.hgrow="ALWAYS" />
+					</children>
+					<padding>
+						<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+					</padding>
+				</HBox>
+			</children>
+		</VBox>
+	</children>
+</AnchorPane>
