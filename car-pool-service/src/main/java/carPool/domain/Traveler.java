@@ -3,24 +3,55 @@ package carPool.domain;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Entity
+@Table(name = "Travelers")
 public class Traveler {
 
 	// Initiate logger
 	private static Logger logger = LoggerFactory.getLogger(Traveler.class);
 
 	// Fields initialized at creation time
+	@Id
+	@GeneratedValue(generator = "ID_GENERATOR")
 	private long _id;
+
+	@Column(name = "email", nullable = false, length = 50)
 	private String _email;
+
+	@Column(name = "username", nullable = false, length = 50)
 	private String _username;
+
+	@Column(name = "gender", nullable = false, length = 30)
 	private Gender _gender;
+
+	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	@JoinColumn(name = "home", nullable = false)
 	private GeoPosition _home;
 
 	// Fields set after creation
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "location", nullable = true)
 	private GeoPosition _location;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "FRIENDS")
 	private Set<Traveler> _friends;
 
 	public Traveler(long id, String email, String username, Gender gender, GeoPosition home) {

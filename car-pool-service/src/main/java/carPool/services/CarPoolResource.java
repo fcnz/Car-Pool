@@ -13,9 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
 
-import carPool.domain.Gender;
 import carPool.domain.GeoPosition;
 import carPool.domain.Traveler;
 import carPool.domain.Trip;
@@ -43,38 +41,38 @@ public class CarPoolResource {
 	public CarPoolResource() {
 		reloadDatabase();
 
-		initializeSampleData();
+//		initializeSampleData();
 	}
 
-	private void initializeSampleData() {
-		// ----- Initialize traveler 1
-		long id = _travelerIDCounter.incrementAndGet();
-		GeoPosition home = new GeoPosition(0, 0);
-		Traveler traveler1 = new Traveler(id, "t1@carpool.co.nz", "Traveler One", Gender.MALE, home);
-
-		// ----- Initialize traveler 2
-		id = _travelerIDCounter.incrementAndGet();
-		home = new GeoPosition(0, 0);
-		Traveler traveler2 = new Traveler(id, "t2@carpool.co.nz", "Traveler Two", Gender.FEMALE, home);
-
-		// ----- Initialize a trip for traveler 1
-		id = _tripIDCounter.incrementAndGet();
-		GeoPosition start = new GeoPosition(0.0, 0.0);
-		GeoPosition end = new GeoPosition(0.002, 0.0008);
-		DateTime startTime = DateTime.now().plusDays(2);
-		Trip trip = new Trip(id, startTime, start, end);
-		trip.setTraveler(traveler1.getId());
-
-		// ----- Initialize a trip for traveler 2
-		id = _tripIDCounter.incrementAndGet();
-		start = new GeoPosition(0.0000001, 0.0000002);
-		end = new GeoPosition(0.0020000003, 0.0008001);
-		startTime = DateTime.now().plusDays(2);
-		trip = new Trip(id, startTime, start, end);
-		trip.setTraveler(traveler2.getId());
-
-		// Place initialized objects in the database tables
-	}
+//	private void initializeSampleData() {
+//		// ----- Initialize traveler 1
+//		long id = _travelerIDCounter.incrementAndGet();
+//		GeoPosition home = new GeoPosition(0, 0);
+//		Traveler traveler1 = new Traveler(id, "t1@carpool.co.nz", "Traveler One", Gender.MALE, home);
+//
+//		// ----- Initialize traveler 2
+//		id = _travelerIDCounter.incrementAndGet();
+//		home = new GeoPosition(0, 0);
+//		Traveler traveler2 = new Traveler(id, "t2@carpool.co.nz", "Traveler Two", Gender.FEMALE, home);
+//
+//		// ----- Initialize a trip for traveler 1
+//		id = _tripIDCounter.incrementAndGet();
+//		GeoPosition start = new GeoPosition(0.0, 0.0);
+//		GeoPosition end = new GeoPosition(0.002, 0.0008);
+//		DateTime startTime = DateTime.now().plusDays(2);
+//		Trip trip = new Trip(id, startTime, start, end);
+//		trip.setTraveler(traveler1.getId());
+//
+//		// ----- Initialize a trip for traveler 2
+//		id = _tripIDCounter.incrementAndGet();
+//		start = new GeoPosition(0.0000001, 0.0000002);
+//		end = new GeoPosition(0.0020000003, 0.0008001);
+//		startTime = DateTime.now().plusDays(2);
+//		trip = new Trip(id, startTime, start, end);
+//		trip.setTraveler(traveler2.getId());
+//
+//		// Place initialized objects in the database tables
+//	}
 
 	private void reloadDatabase() {
 		// Initialize pseudo database tables
@@ -113,11 +111,9 @@ public class CarPoolResource {
 
 	@POST
 	@Path("{id}/Trips")
-	public Response createTrip(@PathParam("id") long travelerID, carPool.dto.Trip dtoTrip) {
-		logger.debug("Read Trip: " + dtoTrip);
+	public Response createTrip(@PathParam("id") long travelerID, Trip trip) {
+		logger.debug("Read Trip: " + trip);
 
-		// Convert to domain Trip
-		Trip trip = CarPoolMapper.toDomainTrip(dtoTrip);
 		// Set the ID
 		trip.setID(_tripIDCounter.incrementAndGet());
 		// Return the response

@@ -10,24 +10,27 @@ package carPool.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Trip {
+@Entity
+@Table(name = "TRIPS")
+public class Trip extends Detour {
 
 	private static Logger logger = LoggerFactory.getLogger(Trip.class);
 
-	// Could be a driver or a passenger
-	private long _id;
-	private long _travelerID;
-	private DateTime _startTime;
-	private GeoPosition _start;
-	private GeoPosition _end;
-	private List<Trip> _detours;
+	private List<Detour> _detours;
+
+	public Trip() {
+		_detours = new ArrayList<Detour>();
+	}
 
 	/**
-	 * Don't use this, deprecated
+	 *
 	 *
 	 * @param id
 	 * @param traveler
@@ -35,18 +38,14 @@ public class Trip {
 	 * @param start
 	 * @param end
 	 */
-	public Trip(long id, long traveler, DateTime dateTime, GeoPosition start, GeoPosition end) {
-		_detours = new ArrayList<Trip>();
-		this._id = id;
-		this._travelerID = traveler;
-		this._startTime = dateTime;
-		this._start = start;
-		this._end = end;
+	public Trip(long id, Traveler traveler, DateTime dateTime, GeoPosition start, GeoPosition end) {
+		super(id, traveler, dateTime, start, end);
+		_detours = new ArrayList<Detour>();
 	}
 
 	/**
-	 * Constructor to use, omits the traveler ID field, should only be added
-	 * when it is added to the database
+	 * Constructor to use, omits the traveler ID field, should only added when
+	 * it is added to the database
 	 *
 	 * @param id
 	 * @param dateTime
@@ -54,11 +53,8 @@ public class Trip {
 	 * @param end
 	 */
 	public Trip(long id, DateTime dateTime, GeoPosition start, GeoPosition end) {
-		_detours = new ArrayList<Trip>();
-		this._id = id;
-		this._startTime = dateTime;
-		this._start = start;
-		this._end = end;
+		super(id, dateTime, start, end);
+		_detours = new ArrayList<Detour>();
 	}
 
 	/**
@@ -85,7 +81,7 @@ public class Trip {
 	 *
 	 * @param detour
 	 */
-	public void addDetour(Trip detour) {
+	public void addDetour(Detour detour) {
 		_detours.add(detour);
 	}
 
@@ -114,57 +110,16 @@ public class Trip {
 	 */
 	public List<GeoPosition> getDirections() {
 		List<GeoPosition> stops = new ArrayList<GeoPosition>();
-		stops.add(_start);
-		for (Trip t : _detours) {
-			stops.add(t.getStart());
+		stops.add(this.getStart());
+		for (Detour d : _detours) {
+			stops.add(d.getStart());
 		}
-		for (Trip t : _detours) {
-			stops.add(t.getEnd());
+		for (Detour d : _detours) {
+			stops.add(d.getEnd());
 		}
-		stops.add(_end);
+		stops.add(this.getEnd());
 		logger.debug("number of stops = " + stops.size());
 		return stops;
-	}
-
-	public long getID() {
-		return _id;
-	}
-
-	public void setID(long _id) {
-		this._id = _id;
-	}
-
-	// Make getEnd() and getStart() safe
-	public GeoPosition getEnd() {
-		return _end;
-	}
-
-	public GeoPosition getStart() {
-		return _start;
-	}
-
-	public long getTravelerID() {
-		return _travelerID;
-	}
-
-	public void setTraveler(long travelerID) {
-		this._travelerID = travelerID;
-	}
-
-	public void setStart(GeoPosition start) {
-		this._start = start;
-	}
-
-	public void setEnd(GeoPosition end) {
-		this._end = end;
-	}
-
-	public DateTime getDateTime() {
-		return _startTime;
-	}
-
-	public void setDateTime(DateTime dateTime) {
-		this._startTime = dateTime;
 	}
 
 }

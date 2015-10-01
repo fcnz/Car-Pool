@@ -1,5 +1,10 @@
 package carPool.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -15,17 +20,25 @@ import org.slf4j.LoggerFactory;
  * GeoPosition object are immutable.
  *
  */
+@Entity
+@Table(name = "GEO_POSITION")
 @XmlRootElement(name = "GeoPosition")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GeoPosition {
 
 	private static Logger logger = LoggerFactory.getLogger(GeoPosition.class);
 
-	@XmlElement(name="latitude")
+	@Column(name = "latitude")
+	@XmlElement(name = "latitude")
 	private double _latitude;
 
-	@XmlElement(name="longitude")
+	@Column(name = "longitude")
+	@XmlElement(name = "longitude")
 	private double _longitude;
+
+	@Id
+	@GeneratedValue(generator = "ID_GENERATOR")
+	private long _id;
 
 	protected GeoPosition() {
 	}

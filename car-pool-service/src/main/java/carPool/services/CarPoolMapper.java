@@ -43,16 +43,4 @@ public class CarPoolMapper {
 		return dtoTraveler;
 	}
 
-	static Trip toDomainTrip(carPool.dto.Trip dtoTrip) {
-		Trip domainTrip = new Trip(dtoTrip.getID(), dtoTrip.getTravelerID(), dtoTrip.getStartTime(), dtoTrip.getStart(),
-				dtoTrip.getEnd());
-		return domainTrip;
-	}
-
-	static carPool.dto.Trip toDTOTrip(Trip domainTrip) {
-		carPool.dto.Trip dtoTrip = new carPool.dto.Trip(domainTrip.getID(), domainTrip.getTravelerID(), domainTrip.getDateTime(), domainTrip.getStart(),
-				domainTrip.getEnd());
-		return dtoTrip;
-	}
-
 }
