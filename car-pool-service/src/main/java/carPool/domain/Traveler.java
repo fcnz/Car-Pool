@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -42,14 +43,14 @@ public class Traveler {
 	@Column(name = "gender", nullable = false, length = 30)
 	private Gender _gender;
 
-	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-	@JoinColumn(name = "home", nullable = false)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "home", nullable = false, unique = true)
 	private GeoPosition _home;
 
 	// Fields set after creation
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "location", nullable = true)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "location", nullable = true, unique = true)
 	private GeoPosition _location;
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -60,10 +61,36 @@ public class Traveler {
 	@JoinTable(name = "TRAVELER_TRIPS", joinColumns = @JoinColumn(name = "traveler-id") , inverseJoinColumns = @JoinColumn(name = "trip-id") )
 	private Set<Trip> _trips;
 
+	/**
+	 * For retrieving an already existing Traveler
+	 *
+	 * @param id
+	 * @param email
+	 * @param username
+	 * @param gender
+	 * @param home
+	 */
 	public Traveler(long id, String email, String username, Gender gender, GeoPosition home) {
 		this._friends = new HashSet<Traveler>();
 		this._trips = new HashSet<Trip>();
 		this._id = id;
+		this._email = email;
+		this._username = username;
+		this._gender = gender;
+		this._home = home;
+	}
+
+	/**
+	 * For creating a new Traveler. DB will give it an ID
+	 *
+	 * @param email
+	 * @param username
+	 * @param gender
+	 * @param home
+	 */
+	public Traveler(String email, String username, Gender gender, GeoPosition home) {
+		this._friends = new HashSet<Traveler>();
+		this._trips = new HashSet<Trip>();
 		this._email = email;
 		this._username = username;
 		this._gender = gender;
