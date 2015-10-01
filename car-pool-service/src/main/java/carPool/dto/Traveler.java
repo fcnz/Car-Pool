@@ -1,5 +1,10 @@
 package carPool.dto;
 
+import org.apache.log4j.Logger;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -11,6 +16,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import carPool.domain.Gender;
 import carPool.domain.GeoPosition;
+import carPool.domain.Trip;
 
 /**
  * <h2>Class to represent a Traveler.</h2>
@@ -38,6 +44,8 @@ import carPool.domain.GeoPosition;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Traveler {
 
+	private static final Logger logger = Logger.getLogger(Traveler.class);
+
 	@XmlAttribute(name = "id")
 	private long _id;
 
@@ -56,10 +64,14 @@ public class Traveler {
 	@XmlElement(name = "location")
 	private GeoPosition _location;
 
+	@XmlElement(name = "trips")
+	private Set<Trip> _trips;
+
 	/**
 	 * Required by JAXB
 	 */
 	public Traveler() {
+		_trips = new HashSet<Trip>();
 	}
 
 	/**
@@ -75,6 +87,7 @@ public class Traveler {
 	 * @param home
 	 */
 	public Traveler(String email, String username, Gender gender, GeoPosition home) {
+		_trips = new HashSet<Trip>();
 		_email = email;
 		_username = username;
 		_gender = gender;
@@ -97,11 +110,18 @@ public class Traveler {
 	 * @param location
 	 */
 	public Traveler(long id, String email, String username, Gender gender, GeoPosition home, GeoPosition location) {
+		_trips = new HashSet<Trip>();
 		_id = id;
 		_username = username;
 		_gender = gender;
 		_home = home;
 		_location = location;
+	}
+
+	public void addTrip(Trip trip) {
+		if (!_trips.add(trip)) {
+			logger.error("Trip, " + trip.getDateTime() + " not added to " + this._email);
+		}
 	}
 
 	public long getID() {

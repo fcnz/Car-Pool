@@ -1,6 +1,7 @@
 package carPool.domain;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -54,7 +56,13 @@ public class Traveler {
 	@JoinTable(name = "FRIENDS", joinColumns = @JoinColumn(name = "traveler-id") , inverseJoinColumns = @JoinColumn(name = "friend-id") )
 	private Set<Traveler> _friends;
 
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "TRAVELER_TRIPS", joinColumns = @JoinColumn(name = "traveler-id") , inverseJoinColumns = @JoinColumn(name = "trip-id") )
+	private Set<Trip> _trips;
+
 	public Traveler(long id, String email, String username, Gender gender, GeoPosition home) {
+		this._friends = new HashSet<Traveler>();
+		this._trips = new HashSet<Trip>();
 		this._id = id;
 		this._email = email;
 		this._username = username;
@@ -72,6 +80,12 @@ public class Traveler {
 	public void addFriend(Traveler friend) {
 		if (!_friends.add(friend)) {
 			logger.error("Friend, " + friend.getEmail() + " not added to " + this._email);
+		}
+	}
+
+	public void addTrip(Trip trip) {
+		if (!_trips.add(trip)) {
+			logger.error("Trip, " + trip.getDateTime() + " not added to " + this._email);
 		}
 	}
 
