@@ -20,11 +20,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@XmlRootElement(name = "trip")
+@XmlRootElement(name = "Trip")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "TRIPS")
@@ -118,6 +119,20 @@ public class Trip extends Detour {
 		stops.add(this.getEnd());
 		logger.debug("number of stops = " + stops.size());
 		return stops;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) {
+			return true;
+		}
+		try {
+			Trip t = (Trip) obj;
+			return new EqualsBuilder().append(_id, t._id).append(_startTime, t._startTime).append(_start, _start)
+					.append(_end, t._end).isEquals();
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }

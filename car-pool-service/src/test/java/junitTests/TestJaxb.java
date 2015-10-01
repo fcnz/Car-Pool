@@ -2,6 +2,7 @@ package junitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,6 +19,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
+import carPool.domain.Detour;
 import carPool.domain.Gender;
 import carPool.domain.GeoPosition;
 import carPool.domain.Trip;
@@ -43,7 +45,7 @@ public class TestJaxb {
 	 */
 	@BeforeClass
 	public static void setUpJAXB() throws IOException, JAXBException, SAXException {
-		_jaxbCxt = JAXBContext.newInstance(Traveler.class, Trip.class, GeoPosition.class);
+		_jaxbCxt = JAXBContext.newInstance(Traveler.class, Trip.class, GeoPosition.class, Detour.class);
 		_marshaller = _jaxbCxt.createMarshaller();
 		_unmarshaller = _jaxbCxt.createUnmarshaller();
 
@@ -130,7 +132,7 @@ public class TestJaxb {
 		Trip copy = (Trip) _unmarshaller.unmarshal(bais);
 
 		// The two Trip instances should have the same value (i.e. state).
-		assertEquals(_trip, copy);
+		assertTrue(_trip.equals(copy));
 
 		// The two Trip instance are separate objects.
 		assertNotSame(_trip, copy);

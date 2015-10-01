@@ -14,17 +14,18 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.joda.time.DateTime;
+
+import carPool.jaxb.DateTimeAdapter;
 
 @XmlRootElement(name = "Detour")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "DETOURS")
 public class Detour {
-
-	private static final Logger logger = Logger.getLogger(Detour.class);
 
 	@Id
 	@GeneratedValue(generator = "ID_GENERATOR")
@@ -34,10 +35,11 @@ public class Detour {
 	// ID of passenger
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "passenger", updatable = false)
-	@XmlElement(name = "passenger")
-	private Traveler _passenger;
+	@XmlAttribute(name = "passenger-id")
+	private long _passengerID;
 
 	@XmlElement(name = "start-time")
+	@XmlJavaTypeAdapter(value=DateTimeAdapter.class)
 	protected DateTime _startTime;
 
 	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
@@ -54,9 +56,9 @@ public class Detour {
 
 	}
 
-	public Detour(long id, Traveler passenger, DateTime dateTime, GeoPosition start, GeoPosition end) {
+	public Detour(long id, long passenger, DateTime dateTime, GeoPosition start, GeoPosition end) {
 		this._id = id;
-		this._passenger = passenger;
+		this._passengerID = passenger;
 		this._startTime = dateTime;
 		this._start = start;
 		this._end = end;
@@ -86,12 +88,12 @@ public class Detour {
 		return _start;
 	}
 
-	public Traveler getPassenger() {
-		return _passenger;
+	public long getPassengerID() {
+		return _passengerID;
 	}
 
-	public void setPassenger(Traveler passenger) {
-		this._passenger = passenger;
+	public void setPassengerID(long passenger) {
+		this._passengerID = passenger;
 	}
 
 	public void setStart(GeoPosition start) {
@@ -108,6 +110,21 @@ public class Detour {
 
 	public void setDateTime(DateTime dateTime) {
 		this._startTime = dateTime;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) {
+			return true;
+		}
+		try {
+			Detour d = (Detour) obj;
+			return new EqualsBuilder().append(_id, d._id).append(_startTime, d._startTime).append(_start, _start)
+					.append(_end, d._end).append(_passengerID, d._passengerID).isEquals();
+		} catch (Exception e) {
+			return false;
+		}
+
 	}
 
 }

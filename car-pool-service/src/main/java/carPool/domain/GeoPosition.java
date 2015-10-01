@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -38,6 +39,7 @@ public class GeoPosition {
 
 	@Id
 	@GeneratedValue(generator = "ID_GENERATOR")
+	@XmlAttribute(name = "id")
 	private long _id;
 
 	protected GeoPosition() {
