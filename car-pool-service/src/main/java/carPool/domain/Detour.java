@@ -33,9 +33,9 @@ public class Detour {
 
 	// ID of passenger
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "traveler", updatable = false)
-	@XmlElement(name = "traveler")
-	private Traveler _traveler;
+	@JoinColumn(name = "passenger", updatable = false)
+	@XmlElement(name = "passenger")
+	private Traveler _passenger;
 
 	@XmlElement(name = "start-time")
 	protected DateTime _startTime;
@@ -54,9 +54,9 @@ public class Detour {
 
 	}
 
-	public Detour(long id, Traveler traveler, DateTime dateTime, GeoPosition start, GeoPosition end) {
+	public Detour(long id, Traveler passenger, DateTime dateTime, GeoPosition start, GeoPosition end) {
 		this._id = id;
-		this._traveler = traveler;
+		this._passenger = passenger;
 		this._startTime = dateTime;
 		this._start = start;
 		this._end = end;
@@ -86,12 +86,12 @@ public class Detour {
 		return _start;
 	}
 
-	public Traveler getTraveler() {
-		return _traveler;
+	public Traveler getPassenger() {
+		return _passenger;
 	}
 
-	public void setTraveler(Traveler traveler) {
-		this._traveler = traveler;
+	public void setPassenger(Traveler passenger) {
+		this._passenger = passenger;
 	}
 
 	public void setStart(GeoPosition start) {
