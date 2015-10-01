@@ -51,7 +51,7 @@ public class Traveler {
 	private GeoPosition _location;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "FRIENDS")
+	@JoinTable(name = "FRIENDS", joinColumns = @JoinColumn(name = "traveler-id") , inverseJoinColumns = @JoinColumn(name = "friend-id") )
 	private Set<Traveler> _friends;
 
 	public Traveler(long id, String email, String username, Gender gender, GeoPosition home) {

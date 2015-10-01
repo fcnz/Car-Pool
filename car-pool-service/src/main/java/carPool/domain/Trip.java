@@ -11,35 +11,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@XmlRootElement(name = "trip")
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "TRIPS")
 public class Trip extends Detour {
 
 	private static Logger logger = LoggerFactory.getLogger(Trip.class);
 
+	@OneToMany
+	@JoinTable(name = "TRIP_DETOURS", joinColumns = @JoinColumn(name = "trip-id") , inverseJoinColumns = @JoinColumn(name = "detour-id") )
+	@XmlElement(name = "detours")
 	private List<Detour> _detours;
 
 	public Trip() {
-		_detours = new ArrayList<Detour>();
-	}
-
-	/**
-	 *
-	 *
-	 * @param id
-	 * @param traveler
-	 * @param dateTime
-	 * @param start
-	 * @param end
-	 */
-	public Trip(long id, Traveler traveler, DateTime dateTime, GeoPosition start, GeoPosition end) {
-		super(id, traveler, dateTime, start, end);
 		_detours = new ArrayList<Detour>();
 	}
 

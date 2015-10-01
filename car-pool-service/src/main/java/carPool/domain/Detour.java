@@ -9,10 +9,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
+@XmlRootElement(name = "Detour")
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "DETOURS")
 public class Detour {
@@ -21,22 +28,26 @@ public class Detour {
 
 	@Id
 	@GeneratedValue(generator = "ID_GENERATOR")
+	@XmlAttribute(name = "id")
 	protected long _id;
 
 	// ID of passenger
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "traveler", updatable = false)
-	protected Traveler _traveler;
+	@XmlElement(name = "traveler")
+	private Traveler _traveler;
 
-
+	@XmlElement(name = "start-time")
 	protected DateTime _startTime;
 
 	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "start", nullable = false)
+	@XmlElement(name = "start")
 	protected GeoPosition _start;
 
 	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "end", nullable = false)
+	@XmlElement(name = "end")
 	protected GeoPosition _end;
 
 	public Detour() {
