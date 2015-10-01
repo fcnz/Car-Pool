@@ -26,6 +26,7 @@ public class CarPoolMapper {
 	static Traveler toDomainTraveler(carPool.dto.Traveler dtoTraveler) {
 		Traveler domainTraveler = new Traveler(dtoTraveler.getID(), dtoTraveler.getEmail(), dtoTraveler.getUsername(),
 				dtoTraveler.getGender(), dtoTraveler.getHome());
+		domainTraveler.setTrips(dtoTraveler.getTrips());
 		try {
 			domainTraveler.setLocation(dtoTraveler.getLocation());
 			logger.debug(
@@ -40,6 +41,7 @@ public class CarPoolMapper {
 		carPool.dto.Traveler dtoTraveler = new carPool.dto.Traveler(domainTraveler.getId(),
 				domainTraveler.getEmail(), domainTraveler.getName(), domainTraveler.getGender(),
 				domainTraveler.getHome(), domainTraveler.getLocation());
+		dtoTraveler.setTrips(domainTraveler.getTrips());
 		return dtoTraveler;
 	}
 

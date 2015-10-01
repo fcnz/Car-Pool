@@ -117,6 +117,10 @@ public class Traveler {
 		return Collections.unmodifiableSet(_friends);
 	}
 
+	public Set<Trip> getTrips() {
+		return _trips;
+	}
+
 	// Setters
 
 	public void setID(long id) {
@@ -133,6 +137,10 @@ public class Traveler {
 
 	public void setLocation(GeoPosition location) {
 		this._location = location;
+	}
+
+	public void setTrips(Set<Trip> trips) {
+		_trips = trips;
 	}
 
 	@Override

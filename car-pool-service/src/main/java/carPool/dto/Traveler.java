@@ -2,6 +2,7 @@ package carPool.dto;
 
 import org.apache.log4j.Logger;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -170,6 +171,14 @@ public class Traveler {
 
 	public void setLocation(GeoPosition _location) {
 		this._location = _location;
+	}
+
+	public void setTrips(Set<Trip> trips) {
+		_trips = trips;
+	}
+
+	public Set<Trip> getTrips() {
+		return _trips;
 	}
 
 	@Override
