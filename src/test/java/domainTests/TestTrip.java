@@ -1,4 +1,4 @@
-package junitTests;
+package domainTests;
 
 import static org.junit.Assert.fail;
 
